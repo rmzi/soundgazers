@@ -38,13 +38,14 @@ div.vague { color: lightgrey; }
 
 	window.x = 0
 	window.y = 0
+	var filterVal = "blur(5px)";
 
 	$(document).ready(function() {
  		$.get("http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC", function( data ){
  				$("html").css("background-image", "url(" + data.data.image_original_url + ")");
  		 	});
 
-	 	$("html").on("sound", change)`
+	 	$("html").on("sound", change);
 
 		$("#test").on("click", function() {
 			event.preventDefault();

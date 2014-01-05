@@ -16,7 +16,23 @@
 </style>
 
 <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="http://cwilso.github.io/AudioContext-MonkeyPatch/AudioContextMonkeyPatch.js"></script>
+<script src="js/pitchdetect.js"></script>
+<style>
+body { font: 14pt 'Alike', sans-serif; transition: all 0.2s; -webkit-transition: all 0.2s; /* Safari */}
+#note { font-size: 164px; }
+.droptarget { background-color: #348781}
+div.confident { color: white; }
+div.vague { color: lightgrey; }
+#note { display: inline-block; width: 1em; text-align: left;}
 
+#detector { width: 300px; height: 300px; border: 4px solid gray; border-radius: 8px; text-align: center;}
+#output { position: absolute; width: 300px; height: 300px; }
+#flat { display: none; }
+#sharp { display: none; }
+.flat #flat { display: inline; }
+.sharp #sharp { display: inline; }
+</style>
 <script>
 
 	$(document).ready(function() {
@@ -33,7 +49,8 @@
  		
  	});
 
-	function change(){
+	function change(e, d){
+		console.log(d);
 		console.log("changing css");
 		var filterVal = 'blur(5px)';
 		$('html')
@@ -47,6 +64,16 @@
 
 </head>
 <body>
+<button onclick="this.innerText = togglePlayback()">use demo audio</button>
+<button onclick="toggleLiveInput()">use live input</button>
+<!--<button onclick="updatePitch(0);">sample</button>-->
+
+<div id="detector" class="vague">
+<canvas id="output"></canvas>
+<div class="pitch"><span id="pitch">--</span>Hz</div>
+<div class="note"><span id="note">--</span></div>   
+<div id="detune"><span id="detune_amt">--</span><span id="flat">cents &#9837;</span><span id="sharp">cents &#9839;</span></div>
+</div>
 	<button id="test"></button>
 </body>
 </html>

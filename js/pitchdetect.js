@@ -10,6 +10,14 @@ var detectorElem,
 	detuneElem,
 	detuneAmount;
 
+var soundEmitter = {
+	emit: function(sound){
+		$('html').trigger("sound", sound);
+	},
+};
+
+var lastpitch = 0;
+
 window.onload = function() {
 	var request = new XMLHttpRequest();
 	request.open("GET", "../audio/airisms.mp3", true);
@@ -316,10 +324,15 @@ function updatePitch( time ) {
 	 	pitch = ac;
 	 	pitchElem.innerText = Math.floor( pitch ) ;
 	 	var note =  noteFromPitch( pitch );
-	 	console.log(note);
-	 	document.getElementById('yop').setAttribute("style", "background-color: rgb(0, " + Math.round((note * note) / note)+ "," + Math.abs(2 * note - 50)+ ")");
 		noteElem.innerHTML = noteStrings[note%12];
 		var detune = centsOffFromPitch( pitch, note );
+		if (note !== lastpitch) {
+			soundEmitter.emit({
+				a: note,
+				b: Math.sqrt(note),
+				c: 420,
+			});
+		}
 		if (detune == 0 ) {
 			detuneElem.className = "";
 			detuneAmount.innerHTML = "--";
@@ -330,6 +343,7 @@ function updatePitch( time ) {
 				detuneElem.className = "sharp";
 			detuneAmount.innerHTML = Math.abs( detune );
 		}
+		lastpitch = note;
 	}
 
 	if (!window.requestAnimationFrame)

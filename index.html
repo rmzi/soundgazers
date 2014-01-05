@@ -18,6 +18,7 @@
 <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 
 <script>
+
 	$(document).ready(function() {
  		$.get("http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC", function( data ){
  				$("html").css("background-image", "url(" + data.data.image_original_url + ")");
@@ -34,7 +35,14 @@
 
 	function change(){
 		console.log("changing css");
-	}
+		var filterVal = 'blur(5px)';
+		$('html')
+		  .css('filter',filterVal)
+		  .css('webkitFilter',filterVal)
+		  .css('mozFilter',filterVal)
+		  .css('oFilter',filterVal)
+		  .css('msFilter',filterVal);
+		}
 </script>
 
 </head>

@@ -12,6 +12,7 @@
   		-moz-background-size: cover;
   		-o-background-size: cover;
  	 	background-size: cover;
+ 	 	background-position: center center;
 	}
 </style>
 
@@ -19,12 +20,15 @@
 
 <script>
 
+	window.x = 0
+	window.y = 0
+
 	$(document).ready(function() {
  		$.get("http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC", function( data ){
  				$("html").css("background-image", "url(" + data.data.image_original_url + ")");
  		 	});
 
-	 	$("html").on("sound", change)
+	 	$("html").on("sound", change)`
 
 		$("#test").on("click", function() {
 			event.preventDefault();
@@ -33,10 +37,14 @@
  		
  	});
 
-	function change(){
-		console.log("changing css");
-		var filterVal = 'blur(5px)';
+	function change(e){
+		console.log("changing css with", e);
+		window.x += Math.floor(Math.random() * 100)
+		console.log("x", window.x);
+		window.y += Math.floor(Math.random() * 100)
+		console.log("y", window.y);
 		$('html')
+		  .css("background-position", "" + window.x + "px " + window.y + "px")
 		  .css('filter',filterVal)
 		  .css('webkitFilter',filterVal)
 		  .css('mozFilter',filterVal)

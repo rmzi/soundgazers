@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<title>VIEW</title>
+
+<style>
+	html { 
+  		-webkit-background-size: cover;
+  		-moz-background-size: cover;
+  		-o-background-size: cover;
+ 	 	background-size: cover;
+	}
+</style>
+
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+
+<script>
+	$(document).ready(function() {
+ 		$.get("http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC", function( data ){
+ 				$("html").css("background-image", "url(" + data.data.image_original_url + ")");
+ 		 	});
+
+	 	$("html").on("sound", change)
+
+		$("#test").on("click", function() {
+			event.preventDefault();
+			$("html").trigger("sound");
+		})
+ 		
+ 	});
+
+	function change(){
+		console.log("changing css");
+	}
+</script>
+
+</head>
+<body>
+	<button id="test"></button>
+</body>
+</html>
